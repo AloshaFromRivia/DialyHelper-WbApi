@@ -38,8 +38,9 @@ namespace DailyHelper
             {
                 options.Password.RequireNonAlphanumeric = false;
             });
-            
-            
+
+
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -109,6 +110,12 @@ namespace DailyHelper
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => 
+                builder.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin());
 
             app.UseAuthentication();
             app.UseAuthorization();
