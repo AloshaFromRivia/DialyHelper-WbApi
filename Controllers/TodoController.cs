@@ -30,7 +30,6 @@ namespace DailyHelper.Controllers
         public async Task<ActionResult<IEnumerable<ToDoTask>>> GetTasks()
         {
             return await _context.Tasks
-                .Include(t=>t.User)
                 .Where(t=>t.UserId==HttpContext.GetUserId())
                 .ToListAsync();
         }
@@ -40,7 +39,6 @@ namespace DailyHelper.Controllers
         public async Task<ActionResult<ToDoTask>> GetToDoTask(Guid id)
         {
             var toDoTask = await _context.Tasks
-                .Include(t=>t.User)
                 .Where(t=>t.UserId==HttpContext.GetUserId())
                 .FirstOrDefaultAsync(t=>t.Id==id);
 

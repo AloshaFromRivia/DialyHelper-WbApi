@@ -11,7 +11,6 @@ namespace DailyHelper.Entity
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public ICollection<ShopItem> Items { get; set; }
         public bool Completed { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
@@ -21,6 +20,7 @@ namespace DailyHelper.Entity
     public class ShopItem
     {
         public Guid Id { get; set; }
+        public Guid ListId { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
         public bool Completed { get; set; }

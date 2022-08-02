@@ -54,6 +54,9 @@ namespace DailyHelper.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ListId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 

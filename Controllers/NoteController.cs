@@ -32,7 +32,6 @@ namespace DailyHelper.Controllers
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
             return await _context.Notes
-                .Include(n=>n.User)
                 .Where(n=>n.UserId==HttpContext.GetUserId())
                 .ToListAsync();
         }
@@ -42,7 +41,6 @@ namespace DailyHelper.Controllers
         public async Task<ActionResult<Note>> GetNote(Guid id)
         {
             var note = await _context.Notes
-                .Include(n=>n.User)
                 .Where(n=>n.UserId==HttpContext.GetUserId())
                 .FirstOrDefaultAsync(n => n.Id == id);
 
@@ -102,7 +100,7 @@ namespace DailyHelper.Controllers
                 Id = Guid.NewGuid(),
                 Title = noteRequest.Title,
                 Description = noteRequest.Description,
-                UserId = HttpContext.GetUserId().ToString()
+                UserId = HttpContext.GetUserId()
             };
             
             _context.Notes.Add(note);

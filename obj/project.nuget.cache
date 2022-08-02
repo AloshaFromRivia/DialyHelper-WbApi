@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d6GA0K25cd55QMYhEJxmphL56/94QjLwQT5DcqGosiCxSATvW4GF6JPQOEdYFFO/jjZMiM/C+djlvHU9A1cg/g==",
+  "dgSpecHash": "SvO1+j+eEd6iSmd7pjja1zOgb66bUNTaihufslyljPa276gGPvCWm5Bk5DI3PDFbF7jVXcKoWHiMaHoAlLc5uw==",
   "success": true,
-  "projectFilePath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper\\DailyHelper.csproj",
+  "projectFilePath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper.Server\\DailyHelper.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lexei\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lexei\\.nuget\\packages\\identitymodel\\4.4.0\\identitymodel.4.4.0.nupkg.sha512",

@@ -44,7 +44,7 @@ namespace DailyHelper
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DailyHelper", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DailyHelper.Server", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -104,7 +104,7 @@ namespace DailyHelper
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyHelper v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DailyHelper.Server v1"));
             }
             
             app.UseHttpsRedirection();

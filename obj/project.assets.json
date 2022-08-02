@@ -7945,11 +7945,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper\\DailyHelper.csproj",
-      "projectName": "DailyHelper",
-      "projectPath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper\\DailyHelper.csproj",
+      "projectUniqueName": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper.Server\\DailyHelper.Server.csproj",
+      "projectName": "DailyHelper.Server",
+      "projectPath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper.Server\\DailyHelper.Server.csproj",
       "packagesPath": "C:\\Users\\lexei\\.nuget\\packages\\",
-      "outputPath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper\\obj\\",
+      "outputPath": "D:\\Проекты\\C#\\DailyHelper\\DailyHelper.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -21,7 +21,7 @@ namespace DailyHelper.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DailyHelper.Entity.Note", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.Note", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace DailyHelper.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ShopItem", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ShopItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace DailyHelper.Migrations
                     b.ToTable("ShopItem");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ShoppingList", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ShoppingList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace DailyHelper.Migrations
                     b.ToTable("ShoppingLists");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ToDoTask", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ToDoTask", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -175,7 +175,7 @@ namespace DailyHelper.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.Note", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.Note", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -184,14 +184,14 @@ namespace DailyHelper.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ShopItem", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ShopItem", b =>
                 {
-                    b.HasOne("DailyHelper.Entity.ShoppingList", null)
+                    b.HasOne("DailyHelper.Server.Entity.ShoppingList", null)
                         .WithMany("Items")
                         .HasForeignKey("ShoppingListId");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ShoppingList", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ShoppingList", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -200,7 +200,7 @@ namespace DailyHelper.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ToDoTask", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ToDoTask", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -209,7 +209,7 @@ namespace DailyHelper.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DailyHelper.Entity.ShoppingList", b =>
+            modelBuilder.Entity("DailyHelper.Server.Entity.ShoppingList", b =>
                 {
                     b.Navigation("Items");
                 });
