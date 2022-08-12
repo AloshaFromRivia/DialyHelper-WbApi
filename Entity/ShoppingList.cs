@@ -13,8 +13,6 @@ namespace DailyHelper.Entity
         public string Title { get; set; }
         public bool Completed { get; set; }
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public IdentityUser User { get; set; }
     }
     
     public class ShopItem

@@ -13,7 +13,5 @@ namespace DailyHelper.Entity
         public DateTime DueDate { get; set; }
         public bool Completed { get; set; }
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public IdentityUser User { get; set; }
     }
 }
