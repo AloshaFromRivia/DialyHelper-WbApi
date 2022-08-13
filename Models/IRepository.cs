@@ -6,7 +6,7 @@ using DailyHelper.Entity;
 
 namespace DailyHelper.Models
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> : IDisposable where T : class
     {
         public IQueryable<T> Items { get;}
         Task<IEnumerable<T>> GetAsync();

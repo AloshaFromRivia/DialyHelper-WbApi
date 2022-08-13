@@ -59,5 +59,11 @@ namespace DailyHelper.Models
         {
             return _context.Notes.Any(n => n.Id == id);
         }
+
+        public void Dispose()
+        {
+            _context?.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
