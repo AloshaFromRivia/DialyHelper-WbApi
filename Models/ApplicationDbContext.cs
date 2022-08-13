@@ -6,11 +6,11 @@ namespace DailyHelper.Models
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<ToDoTask> Tasks { get; set; }
-        public DbSet<ShoppingList> ShoppingLists { get; set; }
-        public DbSet<ShopItem> ShopItems { get; set; }
-        public DbSet<Note> Notes { get; set; }
-        public DbSet<IdentityUser> Users { get; set; }
+        public virtual DbSet<ToDoTask> Tasks { get; set; }
+        public virtual DbSet<ShoppingList> ShoppingLists { get; set; }
+        public virtual DbSet<ShopItem> ShopItems { get; set; }
+        public virtual DbSet<Note> Notes { get; set; }
+        public virtual DbSet<IdentityUser> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         :base(options)

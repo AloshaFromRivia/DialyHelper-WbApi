@@ -20,19 +20,19 @@ namespace DailyHelper.Controllers
     [ApiController]
     public class NoteController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<Note> _repository;
 
-        public NoteController(ApplicationDbContext context)
+        public NoteController(IRepository<Note> repository)
         {
-            _context = context;
+            _repository = repository;
         }
         
         // GET: api/NoteController
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-            return await _context.Notes
-                .Where(n=>n.UserId==HttpContext.GetUserId())
+            return await _repository.Items
+                .Where(n => n.UserId == HttpContext.GetUserId())
                 .ToListAsync();
         }
         
@@ -40,9 +40,9 @@ namespace DailyHelper.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Note>> GetNote(Guid id)
         {
-            var note = await _context.Notes
+            var note = await _repository.Items
                 .Where(n=>n.UserId==HttpContext.GetUserId())
-                .FirstOrDefaultAsync(n => n.Id == id);
+                .FirstOrDefaultAsync(n=>n.Id==id);
 
             if (note == null)
             {
@@ -68,25 +68,7 @@ namespace DailyHelper.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(note).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            
             return NoContent();
         }
 
@@ -103,8 +85,7 @@ namespace DailyHelper.Controllers
                 UserId = HttpContext.GetUserId()
             };
             
-            _context.Notes.Add(note);
-            await _context.SaveChangesAsync();
+            _repository.PostAsync(note);
 
             return CreatedAtAction("GetNote", new { id = note.Id }, note);
         }
@@ -113,22 +94,14 @@ namespace DailyHelper.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNote(Guid id)
         {
-            var note = await _context.Notes.FindAsync(id);
+            var note = await _repository.GetAsync(id);
             if (note == null)
             {
                 return NotFound();
             }
-
-            _context.Notes.Remove(note);
-            await _context.SaveChangesAsync();
+            _repository.RemoveAsync(note);
 
             return NoContent();
         }
-
-        private bool NoteExists(Guid id)
-        {
-            return _context.Notes.Any(e => e.Id == id);
-        }
-        
     }
 }

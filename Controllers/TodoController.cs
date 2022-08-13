@@ -18,27 +18,27 @@ namespace DailyHelper.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRepository<ToDoTask> _repository;
 
-        public TodoController(ApplicationDbContext context)
+        public TodoController(IRepository<ToDoTask> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/Todo
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoTask>>> GetTasks()
         {
-            return await _context.Tasks
+            return await _repository.Items
                 .Where(t=>t.UserId==HttpContext.GetUserId())
                 .ToListAsync();
         }
-
+        
         // GET: api/Todo/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ToDoTask>> GetToDoTask(Guid id)
         {
-            var toDoTask = await _context.Tasks
+            var toDoTask = await _repository.Items
                 .Where(t=>t.UserId==HttpContext.GetUserId())
                 .FirstOrDefaultAsync(t=>t.Id==id);
 
@@ -67,23 +67,7 @@ namespace DailyHelper.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(toDoTask).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ToDoTaskExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _repository.PutAsync(id, toDoTask);
 
             return NoContent();
         }
@@ -104,8 +88,7 @@ namespace DailyHelper.Controllers
                 UserId = HttpContext.GetUserId()
             };
 
-            _context.Add(task);
-            await _context.SaveChangesAsync();
+            _repository.PostAsync(task);
 
             return CreatedAtAction("GetToDoTask", new { id = task.Id }, task);
         }
@@ -114,21 +97,15 @@ namespace DailyHelper.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToDoTask(Guid id)
         {
-            var toDoTask = await _context.Tasks.FindAsync(id);
+            var toDoTask = await _repository.GetAsync(id);
             if (toDoTask == null)
             {
                 return NotFound();
             }
 
-            _context.Tasks.Remove(toDoTask);
-            await _context.SaveChangesAsync();
+            _repository.RemoveAsync(toDoTask);
 
             return NoContent();
-        }
-
-        private bool ToDoTaskExists(Guid id)
-        {
-            return _context.Tasks.Any(e => e.Id == id);
         }
     }
 }

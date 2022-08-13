@@ -1,4 +1,5 @@
 using System.Text;
+using DailyHelper.Entity;
 using DailyHelper.Models;
 using DailyHelper.Services;
 using DailyHelper.Settings;
@@ -29,6 +30,9 @@ namespace DailyHelper
         {
             var jwtSetting = new JwtSettings();
             Configuration.Bind(nameof(JwtSettings),jwtSetting);
+
+            services.AddTransient<IRepository<Note>, NoteRepository>();
+            services.AddTransient<IRepository<ToDoTask>, TodoRepository>();
             
             services.AddSingleton(jwtSetting);
             services.AddScoped<IIdentityService, IdentityService>();
