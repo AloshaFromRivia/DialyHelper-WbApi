@@ -29,12 +29,17 @@ namespace DailyHelper
         public void ConfigureServices(IServiceCollection services)
         {
             var jwtSetting = new JwtSettings();
+            var dbSettings = new DbSettings();
+
             Configuration.Bind(nameof(JwtSettings),jwtSetting);
+            Configuration.Bind(nameof(DbSettings),dbSettings);
 
             services.AddTransient<IRepository<Note>, NoteRepository>();
             services.AddTransient<IRepository<ToDoTask>, TodoRepository>();
             
             services.AddSingleton(jwtSetting);
+            services.AddSingleton(dbSettings);
+            
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -96,9 +101,8 @@ namespace DailyHelper
                     };
                 });
             
-            services.AddDbContext<ApplicationDbContext>(
-                options => 
-                    options.UseSqlServer(Configuration["Data:ConnectionString"]));
+            services.AddDbContext<ApplicationDbContext>(builder =>
+                builder.UseSqlServer(dbSettings.ConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

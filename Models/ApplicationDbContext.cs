@@ -1,5 +1,7 @@
 using DailyHelper.Entity;
+using DailyHelper.Settings;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DailyHelper.Models
@@ -35,7 +37,6 @@ namespace DailyHelper.Models
                 .Property(t => t.DueDate)
                 .IsRequired();
         }
-
-        public DbSet<DailyHelper.Entity.ShopItem> ShopItem { get; set; }
+        
     }
 }

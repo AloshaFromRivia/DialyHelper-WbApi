@@ -10,11 +10,13 @@ using System.Text;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using DailyHelper.Entity;
+using DailyHelper.Extentions;
 using DailyHelper.Models;
 using DailyHelper.Models.ViewModels;
 using DailyHelper.Models.ViewModels.Requests;
 using DailyHelper.Models.ViewModels.Responses;
 using DailyHelper.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Identity;
 
@@ -80,6 +82,24 @@ namespace DailyHelper.Controllers
                 Token = authResponse.Token
             });
         }
-        
+
+        [Authorize]
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUser()
+        {
+            var user= await _context.Users.FindAsync(HttpContext.GetUserId());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new UserInfoResponse()
+            {
+                Id=user.Id,
+                Name = user.UserName,
+                Email = user.Email,
+                Phone = user.PhoneNumber
+            });
+        }
     }
 }

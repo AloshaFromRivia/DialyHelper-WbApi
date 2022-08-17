@@ -85,7 +85,7 @@ namespace DailyHelper.Controllers
                 UserId = HttpContext.GetUserId()
             };
             
-            _repository.PostAsync(note);
+            await _repository.PostAsync(note);
 
             return CreatedAtAction("GetNote", new { id = note.Id }, note);
         }
